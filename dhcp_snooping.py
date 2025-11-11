@@ -1,45 +1,54 @@
 """主应用文件：实现DHCP Snooping功能"""
+
 from ryu.base import app_manager
 from ryu.controller import ofp_event
 from ryu.controller.handler import CONFIG_DISPATCHER, MAIN_DISPATCHER
 from ryu.controller.handler import set_ev_cls
 from ryu.ofproto import ofproto_v1_3
-from ryu.lib.packet import packet, ethernet, ipv4, arp, dhcp
+from ryu.lib.packet import packet, ethernet, ipv4, dhcp, arp
+
 
 class DHCPSnooping(app_manager.RyuApp):
-    OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
+    OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]  # 使用OpenFlow 1.3版本
 
     def __init__(self, *args, **kwargs):
         super(DHCPSnooping, self).__init__(*args, **kwargs)
         # 初始化绑定表
-        self.mac_to_port = {} # 用于存储MAC地址到端口的映射
+        self.trusted_ports = {(1, 1)}  # 用于存储信任端口
+        self.mac_to_port = {}  # 用于存储MAC地址到端口的映射
         self.dhcp_binding_table = {}  # 用于存储DHCP绑定信息
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, ev):
+        """处理交换机特性事件，安装默认流表项"""
         datapath = ev.msg.datapath
         ofproto = datapath.ofproto
         parser = datapath.ofproto_parser
 
         # 安装默认流表项：将无法匹配的数据包发送到控制器
         match = parser.OFPMatch()
-        actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER,
-                                         ofproto.OFPCML_NO_BUFFER)]
+        actions = [
+            parser.OFPActionOutput(ofproto.OFPP_CONTROLLER, ofproto.OFPCML_NO_BUFFER)
+        ]
         self.add_flow(datapath, 0, match, actions)
 
     def add_flow(self, datapath, priority, match, actions, buffer_id=None):
         ofproto = datapath.ofproto
         parser = datapath.ofproto_parser
 
-        inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS,
-                                             actions)]
+        inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
         if buffer_id:
-            mod = parser.OFPFlowMod(datapath=datapath, buffer_id=buffer_id,
-                                   priority=priority, match=match,
-                                   instructions=inst)
+            mod = parser.OFPFlowMod(
+                datapath=datapath,
+                buffer_id=buffer_id,
+                priority=priority,
+                match=match,
+                instructions=inst,
+            )
         else:
-            mod = parser.OFPFlowMod(datapath=datapath, priority=priority,
-                                   match=match, instructions=inst)
+            mod = parser.OFPFlowMod(
+                datapath=datapath, priority=priority, match=match, instructions=inst
+            )
         datapath.send_msg(mod)
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
@@ -49,7 +58,7 @@ class DHCPSnooping(app_manager.RyuApp):
         datapath = msg.datapath
         ofproto = datapath.ofproto
         parser = datapath.ofproto_parser
-        in_port = msg.match['in_port']
+        in_port = msg.match["in_port"]
 
         pkt = packet.Packet(msg.data)
         eth = pkt.get_protocols(ethernet.ethernet)[0]
@@ -78,19 +87,55 @@ class DHCPSnooping(app_manager.RyuApp):
 
         # 示例：打印DHCP报文类型
         self.logger.info("DHCP packet: %s", dhcp_pkt)
-        
+
         # 示例：假设端口1是信任端口，其他端口是非信任端口
         trusted_port = 1
         if in_port != trusted_port:
             # 如果是从非信任端口收到的DHCP响应报文，则丢弃
             if dhcp_pkt.op == 2:  # 2表示响应报文（Offer/ACK等）
-                self.logger.info("Drop DHCP response from untrusted port %s", in_port)
+                self.logger.info("拦截来自非信任端口的DHCP响应 %s", in_port)
                 return  # 直接返回，不处理这个报文，相当于丢弃
 
         # 如果不是要丢弃的报文，则正常转发（这里简单广播，实际应根据情况转发）
         # 注意：这里只是示例，实际处理应该更复杂，比如DHCP请求报文应该只发送到信任端口等
+
+        # 广播信息
         actions = [datapath.ofproto_parser.OFPActionOutput(datapath.ofproto.OFPP_FLOOD)]
+        # 数据包配置
         out = datapath.ofproto_parser.OFPPacketOut(
-            datapath=datapath, buffer_id=datapath.ofproto.OFP_NO_BUFFER,
-            in_port=in_port, actions=actions, data=data)
+            datapath=datapath,
+            buffer_id=datapath.ofproto.OFP_NO_BUFFER,
+            in_port=in_port,
+            actions=actions,
+            data=data,
+        )
         datapath.send_msg(out)
+
+    def is_trusted_port(self, port):
+        """检查端口是否为信任端口"""
+        return port in self.trusted_ports
+
+    def handle_arp_packet(self, datapath, in_port, arp_pkt, pkt):
+        """处理ARP报文并进行动态检测"""
+        if arp_pkt.opcode == arp.ARP_REPLY:  # ARP响应报文
+            if not self.validate_arp_reply(arp_pkt, in_port, datapath.id):
+                self.logger.info("拦截ARP欺骗攻击")
+                return  # 丢弃非法ARP响应
+
+        # 合法ARP报文，正常转发
+        self.flood_packet(datapath, in_port, pkt)
+
+    def validate_arp_reply(self, arp_pkt, in_port, datapath_id):
+        """验证ARP响应的合法性"""
+        src_mac = arp_pkt.src_mac
+        src_ip = arp_pkt.src_ip
+
+        if src_mac in self.dhcp_binding_table:
+            binding = self.dhcp_binding_table[src_mac]
+            return (
+                src_ip == binding["ip"]
+                and in_port == binding["port"]
+                and datapath_id == binding["switch"]
+            )
+
+        return False  # 没有绑定记录，视为非法
