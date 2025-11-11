@@ -78,7 +78,7 @@ class DHCPSnooping(app_manager.RyuApp):
 
         # 示例：打印DHCP报文类型
         self.logger.info("DHCP packet: %s", dhcp_pkt)
-
+        
         # 示例：假设端口1是信任端口，其他端口是非信任端口
         trusted_port = 1
         if in_port != trusted_port:
