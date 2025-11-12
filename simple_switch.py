@@ -6,6 +6,7 @@ from ryu.ofproto import ofproto_v1_3
 from ryu.lib.packet import packet
 from ryu.lib.packet import ether_types
 
+
 class SimpleSwitch13(app_manager.RyuApp):
     OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
 
@@ -19,9 +20,11 @@ class SimpleSwitch13(app_manager.RyuApp):
         # 处理数据包
         pass
 
+
 def main():
     app = SimpleSwitch13()
     app.run()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
