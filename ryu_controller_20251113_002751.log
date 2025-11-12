@@ -1,0 +1,174 @@
+loading app dhcp_snooping.py
+loading app ryu.controller.ofp_handler
+instantiating app dhcp_snooping.py of SimpleDhcpSnooping
+📋 绑定表添加: 00:00:00:00:00:01 -> 10.0.0.100 (static)
+📋 绑定表添加: 00:00:00:00:00:02 -> 10.0.0.200 (static)
+📋 绑定表添加: 00:00:00:00:00:04 -> 10.0.0.4 (static)
+🚀 DHCP Snooping应用启动！信任端口: {1}
+instantiating app ryu.controller.ofp_handler of OFPHandler
+BRICK SimpleDhcpSnooping
+  CONSUMES EventOFPPacketIn
+  CONSUMES EventOFPSwitchFeatures
+BRICK ofp_event
+  PROVIDES EventOFPPacketIn TO {'SimpleDhcpSnooping': {'main'}}
+  PROVIDES EventOFPSwitchFeatures TO {'SimpleDhcpSnooping': {'config'}}
+  CONSUMES EventOFPEchoReply
+  CONSUMES EventOFPEchoRequest
+  CONSUMES EventOFPErrorMsg
+  CONSUMES EventOFPHello
+  CONSUMES EventOFPPortDescStatsReply
+  CONSUMES EventOFPPortStatus
+  CONSUMES EventOFPSwitchFeatures
+connected socket:<eventlet.greenio.base.GreenSocket object at 0x7170acd12e50> address:('127.0.0.1', 56218)
+connected socket:<eventlet.greenio.base.GreenSocket object at 0x7170acd17c10> address:('127.0.0.1', 56220)
+hello ev <ryu.controller.ofp_event.EventOFPHello object at 0x7170accbd520>
+move onto config mode
+EVENT ofp_event->SimpleDhcpSnooping EventOFPSwitchFeatures
+switch features ev version=0x4,msg_type=0x6,msg_len=0x20,xid=0xa4f1a82b,OFPSwitchFeatures(auxiliary_id=0,capabilities=79,datapath_id=1,n_buffers=0,n_tables=254)
+🔌 交换机 1 已连接
+move onto main mode
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:00：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:ff:00:00:01
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:00：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:00：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:ff:00:00:03
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:00：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:00：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:00：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:00：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:ff:00:00:04
+⏰ 2025-11-13 00:28:00：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:ff:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:01：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:16
+⏰ 2025-11-13 00:28:01：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:01：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:00:00:00:16
+⏰ 2025-11-13 00:28:01：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:01：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:01：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:01：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:16
+⏰ 2025-11-13 00:28:01：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:02
+⏰ 2025-11-13 00:28:01：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:16
+⏰ 2025-11-13 00:28:01：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:02：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:02：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:02：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 3
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:02：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 信任端口豁免
+⏰ 2025-11-13 00:28:02：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 允许ARP请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:03：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 信任端口豁免
+⏰ 2025-11-13 00:28:03：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 允许ARP请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:04：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 允许ARP请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:04：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 信任端口豁免
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:05：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:05：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 00:00:00:00:00:03
+📊 已处理 30 个数据包
+------------📊 绑定表状态 -----------
+   00:00:00:00:00:01 -> 10.0.0.100 (来源: static)
+   00:00:00:00:00:02 -> 10.0.0.200 (来源: static)
+   00:00:00:00:00:04 -> 10.0.0.4 (来源: static)
+⏰ 2025-11-13 00:28:05：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 00:00:00:00:00:03
+  🔍 检测到DHCP报文 - 类型: DHCPOFFER, 端口: 1
+  ✅ 允许信任端口DHCP响应
+⏰ 2025-11-13 00:28:05：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 00:00:00:00:00:03
+⏰ 2025-11-13 00:28:05：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 00:00:00:00:00:03
+  🔍 检测到DHCP报文 - 类型: DHCPOFFER, 端口: 2
+  🚫 拦截非信任端口DHCP响应
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:05：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPREQUEST, 端口: 3
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:05：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 00:00:00:00:00:03
+  🔍 检测到DHCP报文 - 类型: DHCPACK, 端口: 1
+  ✅ 允许信任端口DHCP响应
+🔔 绑定表更新通知: 00:00:00:00:00:03 -> 10.0.0.13
+📋 绑定表添加: 00:00:00:00:00:03 -> 10.0.0.13 (dhcp)
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:05：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:05：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:05：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:10：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 00:00:00:00:00:03
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 允许ARP请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:10：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 00:00:00:00:00:03
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 信任端口豁免
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:10：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 00:00:00:00:00:01
+  🔗 检测到ARP报文，操作码: 2
+  🔍 ARP响应验证: 00:00:00:00:00:03 -> 10.0.0.13
+  ✅ ARP验证通过: DHCP IP验证通过
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:11：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 00:00:00:00:00:03
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 允许ARP请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:12：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 00:00:00:00:00:03
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 允许ARP请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:13：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:13：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:02
+⏰ 2025-11-13 00:28:13：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:13：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:25：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 2
+  🔍 ARP响应验证: 00:00:00:00:00:04 -> 10.0.0.13
+  🚫 ARP拦截: 静态设备IP欺骗! 声称 10.0.0.13, 配置为 10.0.0.4
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:27：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:28：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:28：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-13 00:28:30：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:02

