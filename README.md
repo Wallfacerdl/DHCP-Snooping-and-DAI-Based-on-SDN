@@ -21,6 +21,7 @@
 
 - **DHCP Snooping**：区分信任与非信任端口，只允许合法DHCP服务器响应
 - **动态ARP检测（DAI）**：验证ARP响应的合法性，防止IP-MAC映射被篡改
+- **DHCP饿死攻击防护**：检测并拦截大量伪造的DHCP Discover报文
 - **实时监控**：对网络中的ARP和DHCP报文进行深度检测与控制
 
 ## **✨ 核心功能**
@@ -31,6 +32,7 @@
 - **ARP欺骗攻击防护**：实时检测并拦截伪造的ARP请求/响应
 - **IP-MAC绑定表管理**：动态学习并维护合法的IP-MAC映射关系
 - **信任端口机制**：支持配置信任端口（如连接合法DHCP服务器的端口）
+- **DHCP饿死攻击防护**：基于速率限制检测并拦截大量DHCP请求
 - **详细日志系统**：完整的操作日志，便于监控和调试
 
 ### **🔮 后续开发计划**
@@ -43,14 +45,7 @@
 
 ```markdown
 +----------------+     +----------------+     +----------------+
-|   Ryu控制器    |     |  OpenFlow交换机  |     |   Mininet网络   |
-|                |     |                |     |                |
-| • DHCP Snooping|←---→| • 流表管理     |←---→| • h1:合法DHCP  |
-| • DAI防护引擎  |     | • 报文转发     |     | • h2:非法DHCP  |
-| • 绑定表管理   |     | • 端口状态监控 |     | • h3:DHCP客户端|
-+----------------+     +----------------+     | • h4:静态客户端|
-                                               +----------------+
-
+|   Ryu控制器    |     |  OpenFlow交换机  |     |   Mininet网络   ||                |     |                |     |                || • DHCP Snooping|←---→| • 流表管理     |←---→| • h1:合法DHCP  || • DAI防护引擎  |     | • 报文转发     |     | • h2:非法DHCP  || • 饿死攻击防护 |     | • 端口状态监控 |     | • h3:DHCP客户端|| • 绑定表管理   |     | • 速率限制     |     | • h4:静态客户端|+----------------+     +----------------+     +----------------+
 ```
 
 ## **⚙️ 环境要求**
@@ -77,41 +72,31 @@
 [https://github.com/faucetsdn/ryu](https://github.com/faucetsdn/ryu)
 
 ```bash
-# 确保Python环境正确（如果您使用Conda）
-# 以管理员模式下运行（因为我conda安装在root目录下）
-sudo -s
-# 创建3.9版本的Python
-conda create -n ryu-env python=3.9
-# 激活库
-conda activate ryu-env
-
-# 更新setuptools（不然会报错）
-pip uninstall setuptools
+# 确保Python环境正确（如果您使用Conda）# 以管理员模式下运行（因为我conda安装在root目录下）sudo -s# 创建3.9版本的Pythonconda create -n ryu-env python=3.9
+# 激活库conda activate ryu-env
+# 更新setuptools（不然会报错）pip uninstall setuptools
 pip install setuptools==67.6.1
-
-# 将下载好的ryu库安装到环境中
-cd /home/Downloads/ryu
+# 将下载好的ryu库安装到环境中cd /home/Downloads/ryu
 pip install .
-
-#检查是否安装成功
-ryu-manager --version
+#检查是否安装成功ryu-manager --version
 ```
 
 ### **2. 启动系统(依旧在conda** ryu-env**环境下）**
 
+```bash
+# 进入项目目录cd /home/.../SoftWareProject/dhcp_snooping_project
+```
+
 **终端1：启动Ryu控制器**
 
 ```bash
-# 启动Ryu控制器（自动记录带时间戳的日志）
-./start_sdn.sh
-
+# 启动Ryu控制器（自动记录带时间戳的日志）./start_sdn.sh
 ```
 
 **终端2：启动Mininet并配置网络**
 
 ```bash
-# 运行Mininet自动化配置脚本sudo python mininet_setup.py
-sudo ./mininet_setup.py
+# 运行Mininet自动化配置脚本sudo python mininet_setup.pysudo ./mininet_setup.py
 ```
 
 ## **📖 详细使用指南**
@@ -135,8 +120,7 @@ sudo ./mininet_setup.py
 项目使用Config单例类统一管理所有配置：
 
 ```python
-# config.py - 配置管理类class Config:
-    def _init_config(self):
+# config.py - 配置管理类class Config:    def _init_config(self):
         self.TRUSTED_PORTS = {1}
         self.STATIC_DEVICES = [
             {
@@ -145,9 +129,7 @@ sudo ./mininet_setup.py
                 "port": 1,
                 "description": "h1 (DHCP服务器)",
             },
-# ...更多设备配置
-        ]
-
+# ...更多设备配置        ]
 ```
 
 ## **🧪 测试与验证**
@@ -167,18 +149,11 @@ sudo ./mininet_setup.py
 ### **基础功能测试**
 
 ```bash
-# 测试全网连通性
-pingall
-
-# 测试h4到h1的连通性
-h4 ping -c 3 h1
-
-# 查看各主机IP配置
-h1 ifconfig h1-eth0
+# 测试全网连通性pingall# 测试h4到h1的连通性h4 ping -c 3 h1
+# 查看各主机IP配置h1 ifconfig h1-eth0
 h2 ifconfig h2-eth0
 h3 ifconfig h3-eth0
 h4 ifconfig h4-eth0
-
 ```
 
 ### **DAI功能测试（来自文件h4_attack.txt)**
@@ -191,7 +166,7 @@ import struct
 
 s = socket.socket(socket.AF_PACKET, socket.SOCK_RAW)
 s.bind(('h4-eth0', 0))
-
+#设置成h3的IP，视配置的情况而变
 arp_response = (
     b'\xff\xff\xff\xff\xff\xff' +
     b'\x00\x00\x00\x00\x00\x04' +
@@ -216,13 +191,28 @@ print('ARP欺骗包已发送: h4声称拥有h3的IP(10.0.0.13)')
 
 ```markdown
 🚫 DAI拦截: ARP欺骗! 00:00:00:00:00:04 声称IP 10.0.0.13, 绑定表记录为 10.0.0.4
-
 ```
 
 **同时应验证：**
 
 - h1的ARP表未被污染（h3的IP仍指向h3的MAC）
 - h3与h1之间的正常通信不受影响
+
+### **Dos攻击测试**
+
+```bash
+# 在h4上执行Dos攻击脚本
+mininet>
+h4 python3 ./dhcp_dos_simple.py h4-eth0
+```
+
+
+### **预期测试结果**
+
+
+```bash
+🚫 DHCP速率超限！端口4可能正在进行饿死攻击，丢弃报文
+```
 
 ## **📁 项目结构**
 
@@ -234,8 +224,10 @@ sdn-security-project/
 ├── start_sdn.sh              # 控制器启动脚本（带日志记录）
 ├── config.py                 # 配置管理类（单例模式）
 ├── packet_processor.py       # 包处理过程
+├── dhcp_dos_simple.py        # 简单Dos攻击测试脚本
+├── packet_processor.py       # 包处理模块
+├── binding_table.py          # MAC-IP绑定表模块
 └── logs                      # 日志文件
-
 ```
 
 ## **🔧 故障排除**
@@ -245,22 +237,14 @@ sdn-security-project/
 1. **控制器无法启动**
     
     ```bash
-    # 检查Ryu安装
-    pip list | grep ryu
-    
-    # 检查Python环境
-    python3 --version
-    
+    # 检查Ryu安装pip list | grep ryu
+    # 检查Python环境python3 --version
     ```
     
 2. **Mininet主机无法通信**
     
     ```bash
-    # 检查Open vSwitch状态sudo service openvswitch-switch status
-    
-    # 检查控制器连接
-    ovs-vsctl show
-    
+    # 检查Open vSwitch状态sudo service openvswitch-switch status# 检查控制器连接ovs-vsctl show
     ```
     
 3. **DAI功能不生效**
@@ -270,10 +254,7 @@ sdn-security-project/
 4. **日志文件问题**
     
     ```bash
-    # 查看最新日志文件ls -lt ryu_controller_*.log
-    
-    # 实时监控日志tail -f ryu_controller_20231112_143022.log
-    
+    # 查看最新日志文件ls -lt ryu_controller_*.log# 实时监控日志tail -f ryu_controller_20231112_143022.log
     ```
     
 
@@ -282,26 +263,19 @@ sdn-security-project/
 1. **增加日志详细程度**
     
     ```bash
-    # 修改start_sdn.sh中的日志级别
-    ryu-manager --ofp-tcp-listen-port=6633 --verbose dhcp_snooping.py
-    
+    # 修改start_sdn.sh中的日志级别ryu-manager --ofp-tcp-listen-port=6633 --verbose dhcp_snooping.py
     ```
     
 2. **检查绑定表状态**
     
     ```bash
-    # 在Mininet中查看各主机ARP表
-    h1 arp -a
-    h2 arp -a
-    
+    # 在Mininet中查看各主机ARP表h1 arp -ah2 arp -a
     ```
     
 3. **验证网络连通性**
     
     ```bash
-    # 使用pingall测试全网连通性
-    mininet> pingall
-    
+    # 使用pingall测试全网连通性mininet> pingall
     ```
     
 
@@ -321,7 +295,7 @@ sdn-security-project/
 如有问题或建议，请通过以下方式联系：
 
 - 邮箱：wallfacerdl@gmail.com
-- 项目地址：https://github.com/Wallfacerdl/SDN-project-ryu-for-dhcp_snooping
+- 项目地址：[https://github.com/Wallfacerdl/SDN-project-ryu-for-dhcp_snooping](https://github.com/Wallfacerdl/DHCP-Snooping-and-DAI-Based-on-SDN)
 
 ## **🙏 致谢**
 

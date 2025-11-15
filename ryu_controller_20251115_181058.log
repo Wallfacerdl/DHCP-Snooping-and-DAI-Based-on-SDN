@@ -1,0 +1,343 @@
+loading app dhcp_snooping.py
+loading app ryu.controller.ofp_handler
+instantiating app dhcp_snooping.py of SimpleDhcpSnooping
+📋 绑定表添加: 00:00:00:00:00:01 -> 10.0.0.100 (static)
+📋 绑定表添加: 00:00:00:00:00:02 -> 10.0.0.200 (static)
+📋 绑定表添加: 00:00:00:00:00:04 -> 10.0.0.4 (static)
+🚀 DHCP Snooping应用启动！信任端口: {1}
+instantiating app ryu.controller.ofp_handler of OFPHandler
+BRICK SimpleDhcpSnooping
+  CONSUMES EventOFPPacketIn
+  CONSUMES EventOFPSwitchFeatures
+BRICK ofp_event
+  PROVIDES EventOFPPacketIn TO {'SimpleDhcpSnooping': {'main'}}
+  PROVIDES EventOFPSwitchFeatures TO {'SimpleDhcpSnooping': {'config'}}
+  CONSUMES EventOFPEchoReply
+  CONSUMES EventOFPEchoRequest
+  CONSUMES EventOFPErrorMsg
+  CONSUMES EventOFPHello
+  CONSUMES EventOFPPortDescStatsReply
+  CONSUMES EventOFPPortStatus
+  CONSUMES EventOFPSwitchFeatures
+connected socket:<eventlet.greenio.base.GreenSocket object at 0x74e00da24cd0> address:('127.0.0.1', 49136)
+connected socket:<eventlet.greenio.base.GreenSocket object at 0x74e00d9ddc70> address:('127.0.0.1', 49152)
+hello ev <ryu.controller.ofp_event.EventOFPHello object at 0x74e00d9786d0>
+move onto config mode
+EVENT ofp_event->SimpleDhcpSnooping EventOFPSwitchFeatures
+switch features ev version=0x4,msg_type=0x6,msg_len=0x20,xid=0x4bfeab4e,OFPSwitchFeatures(auxiliary_id=0,capabilities=79,datapath_id=1,n_buffers=0,n_tables=254)
+🔌 交换机 1 已连接
+move onto main mode
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:04：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:04：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:ff:00:00:03
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:04：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:ff:00:00:02
+⏰ 2025-11-15 18:11:04：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:ff:00:00:04
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:05：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:05：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:05：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:ff:00:00:01
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:05：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:00:00:00:16
+⏰ 2025-11-15 18:11:05：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:05：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:16
+⏰ 2025-11-15 18:11:05：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:05：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:16
+⏰ 2025-11-15 18:11:05：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:06：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:16
+⏰ 2025-11-15 18:11:06：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:06：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:06：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:06：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 3
+📊 端口 3: 样本不足 (1 < 5)，跳过速率检查
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:06：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 信任端口豁免
+⏰ 2025-11-15 18:11:06：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 允许ARP请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:06：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:06：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:16
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:07：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 允许ARP请求
+⏰ 2025-11-15 18:11:07：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 信任端口豁免
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:08：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 信任端口豁免
+⏰ 2025-11-15 18:11:08：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 允许ARP请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:09：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 3
+📊 端口 3: 样本不足 (2 < 5)，跳过速率检查
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:09：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 00:00:00:00:00:03
+⏰ 2025-11-15 18:11:09：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 00:00:00:00:00:03
+  🔍 检测到DHCP报文 - 类型: DHCPOFFER, 端口: 2
+  🚫 拦截非信任端口DHCP响应
+📊 已处理 30 个数据包
+------------📊 绑定表状态 -----------
+   00:00:00:00:00:01 -> 10.0.0.100 (来源: static)
+   00:00:00:00:00:02 -> 10.0.0.200 (来源: static)
+   00:00:00:00:00:04 -> 10.0.0.4 (来源: static)
+⏰ 2025-11-15 18:11:09：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 00:00:00:00:00:03
+  🔍 检测到DHCP报文 - 类型: DHCPOFFER, 端口: 2
+  🚫 拦截非信任端口DHCP响应
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:09：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 00:00:00:00:00:03
+⏰ 2025-11-15 18:11:09：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 00:00:00:00:00:03
+  🔍 检测到DHCP报文 - 类型: DHCPOFFER, 端口: 1
+  ✅ 允许信任端口DHCP响应
+⏰ 2025-11-15 18:11:09：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 00:00:00:00:00:03
+  🔍 检测到DHCP报文 - 类型: DHCPOFFER, 端口: 1
+  ✅ 允许信任端口DHCP响应
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:09：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPREQUEST, 端口: 3
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:09：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 00:00:00:00:00:03
+  🔍 检测到DHCP报文 - 类型: DHCPACK, 端口: 1
+  ✅ 允许信任端口DHCP响应
+🔔 绑定表更新通知: 00:00:00:00:00:03 -> 10.0.0.13
+📋 绑定表添加: 00:00:00:00:00:03 -> 10.0.0.13 (dhcp)
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:10：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:02
+⏰ 2025-11-15 18:11:10：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:10：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:10：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:14：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 00:00:00:00:00:03
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 信任端口豁免
+⏰ 2025-11-15 18:11:14：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 00:00:00:00:00:03
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 允许ARP请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:14：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 00:00:00:00:00:01
+  🔗 检测到ARP报文，操作码: 2
+  🔍 ARP响应验证: 00:00:00:00:00:03 -> 10.0.0.13
+  ✅ ARP验证通过: DHCP IP验证通过
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:16：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 00:00:00:00:00:03
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 允许ARP请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:17：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 00:00:00:00:00:03
+  🔗 检测到ARP报文，操作码: 1
+  ✅ 允许ARP请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:18：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:18：📦 端口: 4, 源MAC: 02:00:00:f2:2f:80, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 样本不足 (1 < 5)，跳过速率检查
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:18：📦 端口: 4, 源MAC: 02:00:00:c5:53:7d, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 样本不足 (2 < 5)，跳过速率检查
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:18：📦 端口: 4, 源MAC: 02:00:00:78:40:eb, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 样本不足 (3 < 5)，跳过速率检查
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:18：📦 端口: 4, 源MAC: 02:00:00:86:cc:4d, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 样本不足 (4 < 5)，跳过速率检查
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:18：📦 端口: 4, 源MAC: 02:00:00:80:28:9b, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 时间窗口过短 (0.203s)，等待更多数据
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:18：📦 端口: 4, 源MAC: 02:00:00:dd:f1:c9, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 时间窗口过短 (0.251s)，等待更多数据
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:18：📦 端口: 4, 源MAC: 02:00:00:9d:3f:41, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 时间窗口过短 (0.301s)，等待更多数据
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:18：📦 端口: 4, 源MAC: 02:00:00:d9:ea:ff, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 时间窗口过短 (0.351s)，等待更多数据
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:c3:97:24, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 时间窗口过短 (0.404s)，等待更多数据
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:f6:e3:e5, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 时间窗口过短 (0.453s)，等待更多数据
+  ✅ 转发DHCP客户端请求
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:9a:18:4f, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=11, 时间=0.503s, 速率=21.85 请求/秒
+⚠️ 检测到疑似DHCP饿死攻击! 端口: 4, 速率: 21.85 请求/秒 (样本: 11个报文/0.503s)
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:84:6e:57, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=12, 时间=0.554s, 速率=21.67 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:a7:5a:59, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=13, 时间=0.604s, 速率=21.53 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:4b:f4:dc, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=14, 时间=0.654s, 速率=21.41 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+📊 已处理 60 个数据包
+------------📊 绑定表状态 -----------
+   00:00:00:00:00:01 -> 10.0.0.100 (来源: static)
+   00:00:00:00:00:02 -> 10.0.0.200 (来源: static)
+   00:00:00:00:00:04 -> 10.0.0.4 (来源: static)
+   00:00:00:00:00:03 -> 10.0.0.13 (来源: dhcp)
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:b5:03:21, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=15, 时间=0.704s, 速率=21.30 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:5c:cf:46, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=16, 时间=0.754s, 速率=21.21 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:e6:e0:a2, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=17, 时间=0.805s, 速率=21.13 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:13:fe:4a, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=18, 时间=0.855s, 速率=21.06 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:24:31:21, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=19, 时间=0.907s, 速率=20.96 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:8f:a1:a9, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=20, 时间=0.955s, 速率=20.93 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:02
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:55:ce:49, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=21, 时间=1.007s, 速率=20.85 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:8d:47:59, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=22, 时间=1.056s, 速率=20.83 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:7c:9f:d0, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=23, 时间=1.106s, 速率=20.79 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:54:02:1b, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=24, 时间=1.156s, 速率=20.75 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:9f:54:62, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=25, 时间=1.207s, 速率=20.72 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:cb:62:61, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=26, 时间=1.258s, 速率=20.68 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:23:5e:25, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=27, 时间=1.307s, 速率=20.65 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:19：📦 端口: 4, 源MAC: 02:00:00:2e:39:78, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=28, 时间=1.357s, 速率=20.63 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:20：📦 端口: 4, 源MAC: 02:00:00:bb:30:b0, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=29, 时间=1.409s, 速率=20.58 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:20：📦 端口: 4, 源MAC: 02:00:00:5c:a2:a3, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔍 检测到DHCP报文 - 类型: DHCPDISCOVER, 端口: 4
+📊 端口 4: 计数=30, 时间=1.459s, 速率=20.56 请求/秒
+  🚫 DHCP速率超限! 端口4 可能正在进行饿死攻击，丢弃报文
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:20：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:33：📦 端口: 3, 源MAC: 00:00:00:00:00:03, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:37：📦 端口: 1, 源MAC: 00:00:00:00:00:01, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:38：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: 33:33:00:00:00:02
+⏰ 2025-11-15 18:11:38：📦 端口: 2, 源MAC: 00:00:00:00:00:02, 目的MAC: 33:33:00:00:00:02
+EVENT ofp_event->SimpleDhcpSnooping EventOFPPacketIn
+⏰ 2025-11-15 18:11:47：📦 端口: 4, 源MAC: 00:00:00:00:00:04, 目的MAC: ff:ff:ff:ff:ff:ff
+  🔗 检测到ARP报文，操作码: 2
+  🔍 ARP响应验证: 00:00:00:00:00:04 -> 10.0.0.13
+  🚫 ARP拦截: 静态设备IP欺骗! 声称 10.0.0.13, 配置为 10.0.0.4

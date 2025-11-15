@@ -18,6 +18,7 @@ class SimpleDhcpSnooping(app_manager.RyuApp):
         super(SimpleDhcpSnooping, self).__init__(*args, **kwargs)
 
         # 初始化组件
+        
         self.config = Config()
         self.binding_table = BindingTableManager(self.logger)
         self.packet_processor = PacketProcessor(self.logger, self.binding_table)
